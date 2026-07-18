@@ -14,6 +14,17 @@ def emotion_detector(text_to_analyse):
     # Send a POST request to the API with the text and headers
     response = requests.post(url, json=myobj, headers=header)
 
+    # Handle blank entries: Watson returns status_code 400 for invalid/empty input
+    if response.status_code == 400:
+        return {
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
+
     # Convert the response text into a dictionary
     formatted_response = json.loads(response.text)
 
@@ -35,7 +46,7 @@ def emotion_detector(text_to_analyse):
     }
     dominant_emotion = max(emotions, key=emotions.get)
 
-    # Return the required output format
+    #Return the required output format
     return {
         'anger': anger_score,
         'disgust': disgust_score,
