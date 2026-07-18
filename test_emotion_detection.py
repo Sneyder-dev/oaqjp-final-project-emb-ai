@@ -19,4 +19,6 @@ class TestEmotionDetector(unittest.TestCase):
         self.assertEqual(result_5['dominant_emotion'], 'fear')
 
 if __name__ == "__main__":
+    # This block executes the flask app and deploys it on localhost:5000
     unittest.main()
+    
